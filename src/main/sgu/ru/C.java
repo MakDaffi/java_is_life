@@ -17,7 +17,7 @@ public class C {
                 {    
                     System.out.println(processingLine(line));
                 }
-                catch (Exception ex) {
+                catch (java.lang.NullPointerException | IllegalArgumentException ex) {
                     System.out.println("Unable to process line " + line);
                 }
             }
@@ -28,11 +28,11 @@ public class C {
         }
     }
 
-    private String processingLine(String line) throws Exception {
+    private String processingLine(String line) throws IllegalArgumentException {
         String[] data = Arrays.copyOfRange(line.split(" "), 0, 3);
         for(int i = 0; i < data.length; i++) {
             if (!spellCheck(data[i])) {
-                throw new Exception("Unexpected method");
+                throw new IllegalArgumentException("There was an error in the line");
             }
         }
         return data[1] + " " + data[0].charAt(0) + ". " + data[2].charAt(0) + ".";
