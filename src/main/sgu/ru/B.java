@@ -8,7 +8,7 @@ class B {
 
     public void main() {  
         String[] input = System.console().readLine(
-            "Enter line in format num, num, operation: "
+            "Enter line in format num num operation: "
         ).split(" ");
         Operation operation = Operation.valueOf(input[2]);
         BigDecimal a = new BigDecimal(input[0]);
@@ -31,20 +31,12 @@ class B {
                 answer = a.remainder(b);
                 break;
             case POW:
-                answer = pow(a, b);
+                Integer degree = b.toBigInteger().intValueExact();
+                answer = a.pow(degree);
                 break;
             default:
                 throw new java.lang.Error("Unexpected method");
         }
         System.out.println("Result = " + answer);  
-    }
-
-    private BigDecimal pow(BigDecimal a, BigDecimal b) {
-        BigDecimal result = BigDecimal.ONE;
-        while(b.signum() == 1) {
-            result = result.multiply(a);
-            b = b.subtract(BigDecimal.ONE);
-        }
-        return result;
     }
 }
