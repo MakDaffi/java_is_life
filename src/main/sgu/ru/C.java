@@ -1,49 +1,58 @@
 package main.sgu.ru;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.Scanner;
+
+import java.nio.charset.Charset;
+import java.util.Random;
 
 public class C {
-    public void main() {
-        String file = System.console().readLine("Enter file name: ");
-        try
-        {
-            System.out.println("Processed lines:");
-            Scanner scanner = new Scanner(new File(file));
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                try
-                {    
-                    System.out.println(processingLine(line));
-                }
-                catch (java.lang.NullPointerException | IllegalArgumentException ex) {
-                    System.out.println("Unable to process line " + line);
-                }
-            }
-            scanner.close();
+    private final Integer RANDOM_STR_LEN = 10;
+    private final Integer ROUNDS_NUM = 100000;
+
+    private String classicString() {
+        String result = new String();
+        for (int i = 0; i < ROUNDS_NUM; i++) {
+            String generatedString = genRandomStr(RANDOM_STR_LEN);
+            result += generatedString;
         }
-        catch (FileNotFoundException ex)  {
-            System.out.println("File " + file + " not exist!");
-        }
+        return result;
     }
 
-    private String processingLine(String line) throws IllegalArgumentException {
-        String[] data = Arrays.copyOfRange(line.split(" "), 0, 3);
-        for(int i = 0; i < data.length; i++) {
-            if (!spellCheck(data[i])) {
-                throw new IllegalArgumentException("There was an error in the line");
-            }
+    private StringBuffer stringBuffer() {
+        StringBuffer result = new StringBuffer();
+        for (int i = 0; i < ROUNDS_NUM; i++) {
+            String generatedString = genRandomStr(RANDOM_STR_LEN);
+            result.append(generatedString);
         }
-        return data[1] + " " + data[0].charAt(0) + ". " + data[2].charAt(0) + ".";
+        return result;
     }
-    
-    private boolean spellCheck(String word) {
-        for (int j = 0; j < word.length(); j++) {
-            if (!Character.isLetter(word.charAt(j))) {
-                return false;
-            }
+
+    private StringBuilder stringBuilder() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < ROUNDS_NUM; i++) {
+            String generatedString = genRandomStr(RANDOM_STR_LEN);
+            result.append(generatedString);
         }
-        return true;
+        return result;
+    }
+
+    private String genRandomStr(Integer charNums) {
+        byte[] array = new byte[charNums];
+        new Random().nextBytes(array);
+        String generatedString = new String(array, Charset.forName("UTF-16"));
+        
+        return generatedString;
+    }
+
+    public void main(String[] args) {
+        long start = System.currentTimeMillis();
+        classicString();
+        System.out.println("Classic String: " + (System.currentTimeMillis() - start) + " ms");
+
+        start = System.currentTimeMillis();
+        stringBuffer();
+        System.out.println("String Buffer: " + (System.currentTimeMillis() - start) + " мс");
+
+        start = System.currentTimeMillis();
+        stringBuilder();
+        System.out.println("String Builder: " + (System.currentTimeMillis() - start) + " мс");
     }
 }
