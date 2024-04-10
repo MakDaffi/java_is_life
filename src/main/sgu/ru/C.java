@@ -49,10 +49,10 @@ public class C {
 
         start = System.currentTimeMillis();
         stringBuffer();
-        System.out.println("String Buffer: " + (System.currentTimeMillis() - start) + " мс");
+        System.out.println("String Buffer: " + (System.currentTimeMillis() - start) + " ms");
 
         start = System.currentTimeMillis();
         stringBuilder();
-        System.out.println("String Builder: " + (System.currentTimeMillis() - start) + " мс");
+        System.out.println("String Builder: " + (System.currentTimeMillis() - start) + " ms");
     }
 }
