@@ -37,7 +37,7 @@ public class C {
     private String genRandomStr(Integer charNums) {
         byte[] array = new byte[charNums];
         new Random().nextBytes(array);
-        String generatedString = new String(array, Charset.forName("UTF-16"));
+        String generatedString = new String(array, Charset.forName("UTF-8"));
         
         return generatedString;
     }
