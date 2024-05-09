@@ -7,6 +7,7 @@ interface Character {
     void getDamage(int damage);
     void attack(Character enemyCharacter);
     void specialMove(Character enemyCharacter);
+    void autMove(Character enemyCharacter);
     
     boolean equals(Object object);
     int hashCode();
@@ -46,11 +47,20 @@ class BaseCharacter implements Character {
     }
 
     public void setHealth(int newHealth) {
+        if (newHealth < this.health) {
+            System.out.println(String.format("Персонаж %s получил %d единиц урона, текущее количество здоровья %d", this.getName(), this.health - newHealth, newHealth));
+        } else {
+            System.out.println(String.format("Персонаж %s восстановил %d единиц здоровья, текущее количество здоровья %d", this.getName(), newHealth - this.health, newHealth));
+        }
         this.health = newHealth;
     }
 
     public void getDamage(int damage) {
-        setHealth(getHealth() - damage);
+        if (damage > getHealth()) {
+            this.setHealth(0);
+        } else {
+            this.setHealth(getHealth() - damage);
+        }
     }
 
     public void attack(Character enemyCharacter) {
@@ -61,6 +71,15 @@ class BaseCharacter implements Character {
 
     public void specialMove(Character enemyCharacter) {
         System.out.println(toString() + " is trying to make powerful action, but unfortunately he can not do anything(");
+    }
+
+    public void autMove(Character enemyCharacter) {
+        Random random = new Random();
+            if (random.nextBoolean()) {
+                this.attack(enemyCharacter);
+            } else {
+                this.specialMove(enemyCharacter);
+            }
     }
 
     public boolean equals(Object o) {

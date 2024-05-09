@@ -6,7 +6,8 @@ class Priest extends BaseCharacter {
         super(name, 50, 10, 15);
     }
 
+    @Override
     public void specialMove(Character enemyCharacter) {
-        setHealth(getHealth() + 15);
+        this.setHealth(getHealth() + 15);
     }
 }

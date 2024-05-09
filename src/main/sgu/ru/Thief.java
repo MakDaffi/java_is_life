@@ -7,7 +7,7 @@ class Thief extends BaseCharacter {
     }
 
     public void specialMove(Character enemyCharacter) {
-        setHealth(getHealth() + 8);
+        this.setHealth(getHealth() + 8);
         enemyCharacter.getDamage(8);
     }
 }
