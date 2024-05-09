@@ -30,7 +30,7 @@ CREATE TABLE departmentLocation(
 	location VARCHAR(64) NOT NULL
 );
 
-CREATE VIEW departmentEmployeeLocation AS
+CREATE VIEW employeeInfo AS
 SELECT de.id, de.employeeName, dl.departmentName, dl.location
 FROM departmentEmployee as de INNER JOIN departmentLocation as dl
 ON de.departmentId = dl.departmentId;
