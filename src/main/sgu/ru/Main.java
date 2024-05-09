@@ -8,7 +8,7 @@ import src.main.sgu.ru.entities.EmployeeAge;
 import src.main.sgu.ru.entities.EmployeeInfo;
 
 public class Main {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    public void main() throws SQLException, ClassNotFoundException {
         PostgresClient client = new PostgresClient("localhost", "5432", "task7", "postgres", "1234");
         System.out.println("Task1:");
         ArrayList<EmployeeAge> employeesAge = client.getEmployeesAge();
